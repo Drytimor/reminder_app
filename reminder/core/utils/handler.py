@@ -117,18 +117,23 @@ class EventPostHandler(BaseHandler):
 
 
 class RecordPostHandler(BaseHandler):
-    def __init__(self, event_id: int, reminder_time: int, user_id: int):
+    def __init__(
+            self, event_id: int, reminder_time: int, user_id: int
+    ):
         self.user_id = user_id
         self.event_id = event_id
         self.reminder_time = reminder_time
 
     def run_service(self):
         service_object = RecordPostService()
-        result = service_object(
-            event_id=self.event_id, reminder_time=self.reminder_time,
-            user_id=self.user_id
+        result = (
+            service_object(
+                event_id=self.event_id, reminder_time=self.reminder_time,
+                user_id=self.user_id
+            )
         )
         if result.is_error:
             raise self.exception(result.error)
+
         if result.is_success:
             return result.record

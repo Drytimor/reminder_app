@@ -17,7 +17,7 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR.parent.parent, 'dev.env'))
 env = environ.Env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -38,7 +38,7 @@ LOGGING = {
         "file": {
             "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": os.path.join(BASE_DIR, 'django_debug.log'),
+            "filename": os.path.join(BASE_DIR.parent, 'django_debug.log'),
         },
     },
     "loggers": {
@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'debug_toolbar',
     'django_extensions',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -85,8 +86,6 @@ INTERNAL_IPS = [
     '0.0.0.0'
     # ...
 ]
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 TEMPLATES = [
     {
@@ -130,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -142,27 +141,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-##############Services#################
 
-# Celery
-CELERY_BROKER_URL = env("CELERY_BROKER")
-CELERY_RESULT_BACKEND = env("CELERY_BACKEND")
-
-# DB
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': env('POSTGRES_HOST'),
-        'NAME': env('POSTGRES_DB'),
-        'USER': env('POSTGRES_USER'),
-        'PASSWORD': env('POSTGRES_PASSWORD'),
-    }
-}
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-##############Project#################
-EVENTS_NAME_MAX_LENGTH = env.int('EVENTS_NAME_MAX_LENGTH')
 
 

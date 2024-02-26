@@ -3,7 +3,7 @@ import os
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'reminder.settings')
 
-app = Celery('reminder', include=['core.tasks'])
+app = Celery('reminder')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 

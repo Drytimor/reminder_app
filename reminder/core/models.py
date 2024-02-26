@@ -1,12 +1,23 @@
 from django.conf.global_settings import AUTH_USER_MODEL
 from django.db import models
 from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler(
+    filename=f"app.log", encoding='UTF-8'
+)
+formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
 
 event_name_max_length = settings.EVENTS_NAME_MAX_LENGTH
 
 
 class ReminderTime(models.IntegerChoices):
-    zero = 0, 'не напоминать',
+    zero = 0, 'не напоминать'
     one = 1, 'за один час'
     three = 3, 'за три часа'
     twelve = 12, 'за двенадцать часов'

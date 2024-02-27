@@ -1,0 +1,19 @@
+
+###
+POST http://0.0.0.0:8000/event/
+Content-Type: application/x-www-form-urlencoded
+
+name = evenwat22 &
+date = 2024-02-22 16:18
+
+###
+GET http://0.0.0.0:8000/event?event_id=51
+
+###
+POST http://0.0.0.0:8000/record/
+Content-Type: application/x-www-form-urlencoded
+
+user_id = 1 &
+event_id = 96 &
+reminder_time = 1
+
